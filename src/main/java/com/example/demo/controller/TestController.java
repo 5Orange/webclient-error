@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 
 import java.time.Duration;
 import java.util.concurrent.TimeoutException;
@@ -39,7 +40,8 @@ public class TestController {
     @GetMapping("delay")
     @SneakyThrows
     public String delayresponse() {
-        Thread.sleep(15000);
-        return "success";
+        return Flux.interval(Duration.ofSeconds(15))
+        .next()
+        .map(any -> "success");
     }
 }

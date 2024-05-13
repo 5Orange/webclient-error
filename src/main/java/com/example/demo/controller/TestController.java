@@ -39,7 +39,7 @@ public class TestController {
 
     @GetMapping("delay")
     @SneakyThrows
-    public String delayresponse() {
+    public Mono<?> delayresponse() {
         return Flux.interval(Duration.ofSeconds(15))
         .next()
         .map(any -> "success");
